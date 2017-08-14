@@ -11,6 +11,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -19,13 +21,98 @@
         </Grid.ColumnDefinitions>
 
 
-        <TreeView ItemsSource="{Binding ListaGrupo, UpdateSourceTrigger=PropertyChanged}">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding ListaEmpresa}">
+        <!--<TreeView 
+            Grid.Column="1" 
+            Grid.Row="0">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="True"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeViewItem Header="Grupo1">
+                <TreeViewItem Header="Empresa1"/>
+                <TreeViewItem Header="Empresa2"/>
+                <TreeViewItem Header="Empresa3"/>
+            </TreeViewItem>
+            <TreeViewItem Header="Grupo2">
+                <TreeViewItem Header="Empresa1"/>
+                <TreeViewItem Header="Empresa2"/>
+                <TreeViewItem Header="Empresa3"/>
+            </TreeViewItem>
+        </TreeView>-->
 
+        <TreeView 
+            Grid.Column="1" 
+            Grid.Row="0"
+            ItemsSource="{Binding ListaGrupo, UpdateSourceTrigger=PropertyChanged}">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="True"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type local:Grupo}" ItemsSource="{Binding Path=ListaEmpresa}" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Valor Juros: " />
+                                <TextBlock Text="{Binding TotalLimite, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="2">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Valor Multa: " />
+                                <TextBlock Text="{Binding TotalMulta, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="3">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Valor Juros: " />
+                                <TextBlock Text="{Binding TotalJuros, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="4" >
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Valor Mora: " />
+                                <TextBlock Text="{Binding TotalMora, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
                 </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>    
+
+                <HierarchicalDataTemplate DataType="{x:Type local:Empresa}">
+                    <Border>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Text="{Binding Nome}" />
+                            <TextBox Grid.Column="1" Text="{Binding Limite}" />
+                            <TextBox Grid.Column="2" Text="{Binding Multa}" />
+                            <TextBox Grid.Column="3" Text="{Binding Juros}" />
+                            <TextBox Grid.Column="4" Text="{Binding Mora}" />
+                        </Grid>
+                    </Border>
+                    <HierarchicalDataTemplate.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="Background" Value="AliceBlue"/>
+                        </Style>
+                    </HierarchicalDataTemplate.ItemContainerStyle>
+                </HierarchicalDataTemplate>
+
+            </TreeView.Resources>
         </TreeView>
-        
+
     </Grid>
 </local:ControleBase>
